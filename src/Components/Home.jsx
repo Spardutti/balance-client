@@ -37,7 +37,7 @@ const Home = (props) => {
       {props.userInfo ? (
         <h1>user</h1>
       ) : (
-        <div className=" d-flex justify-content-center flex-column">
+        <div className=" d-flex justify-content-center mt-5">
           <div className="google-btn">
             <div className="google-icon-wrapper">
               <img
@@ -46,9 +46,9 @@ const Home = (props) => {
                 className="google-icon"
               />
             </div>
-            <p className="btn-text">
+            <a href="http://localhost:5000/google/login" className="btn-text">
               <b>Sign in with google</b>
-            </p>
+            </a>
           </div>
         </div>
       )}
