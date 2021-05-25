@@ -1,37 +1,14 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import AddItem from "./AddItem";
 
 const Table = (props) => {
   const [userItems, setUserItems] = useState();
-  const [years, setYears] = useState([]);
-  const [months, setMonths] = useState([]);
-  const [days, setDays] = useState([]);
 
   //GET ALL YEAR OF ITEMS
   const getYears = () => {
     userItems.map((item) => {
-      let date = new Date(item.date).getFullYear();
-      if (years.indexOf(date) === -1) {
-        setYears([...years, date]);
-      }
-    });
-  };
-
-  const getMonths = () => {
-    userItems.map((item) => {
-      let date = new Date(item.date).toLocaleString("default", {
-        month: "long",
-      });
-      if (months.indexOf(date) === -1) {
-        setMonths([...months, date]);
-      }
-    });
-  };
-
-  const getDays = () => {
-    userItems.map((item) => {
-      let date = new Date(item.date).getDay();
-      setDays([...days, date]);
+      console.log(item);
     });
   };
 
@@ -54,36 +31,12 @@ const Table = (props) => {
   useEffect(() => {
     if (userItems) {
       getYears();
-      getMonths();
-      getDays();
     }
   }, [userItems]);
 
   return (
     <div>
-      Table
-      {years.map((year) => {
-        return (
-          <div key={year}>
-            <h3>{year}</h3>
-            {months.map((month) => {
-              return (
-                <div key={month}>
-                  <h4>{month}</h4>
-                  {days.map((day) => {
-                    return (
-                      <div key={day}>
-                        <p>{day}</p>
-                        {console.log()}
-                      </div>
-                    );
-                  })}
-                </div>
-              );
-            })}
-          </div>
-        );
-      })}
+      <AddItem userInfo={props.userInfo} token={props.token} />
     </div>
   );
 };
