@@ -7,33 +7,40 @@ const Table = (props) => {
   const [userItems, setUserItems] = useState();
   const [itemYear, setItemYear] = useState();
   const [itemMonth, setItemMonth] = useState();
+  const [currentYear, setCurrentYear] = useState(
+    new Date().getFullYear().toString()
+  );
+  const [currentMonth, setCurrentMonth] = useState(
+    new Date().toLocaleString("default", { month: "long" })
+  );
 
   //GET ALL YEAR OF ITEMS
   const getYears = () => {
     let yearsArr = [];
-    userItems.forEach((item) => {
-      if (yearsArr.indexOf(item.year) === -1) {
-        yearsArr.push(item.year);
+    userItems.forEach((ele) => {
+      if (yearsArr.indexOf(ele.year) === -1) {
+        yearsArr.push(ele.year);
       }
     });
     setItemYear(yearsArr);
   };
 
-  const getMonths = () => {
+  const getMonths = async () => {
     let monthArr = [];
-    userItems.forEach((item) => {
-      if (monthArr.indexOf(item.month) === -1) {
-        monthArr.push(item.month);
+    userItems.forEach((ele) => {
+      if (ele.year === currentYear && monthArr.indexOf(ele.month) === -1) {
+        monthArr.push(ele.month);
       }
     });
-    setItemMonth(monthArr);
+
+    console.log(monthArr);
   };
 
   //GET USER ITEMS ON LOAD/MOUNT
   useEffect(() => {
     (async () => {
       const response = await fetch(
-        "http://localhost:5000/items/" + props.userInfo._id,
+        "http://localhost:5000/user/items/" + props.userInfo._id,
         {
           headers: {
             Authorization: "Bearer " + props.token,
@@ -60,18 +67,16 @@ const Table = (props) => {
         ? itemYear.map((year) => {
             return (
               <div key={uniqid()}>
-                <h1>{year}</h1>
-                {itemMonth.map((month) => {
-                  return userItems.map((item) => {
-                    if (item.year === year && item.month === month) {
-                      return (
-                        <div>
-                          {month} {item.name}
-                        </div>
-                      );
-                    }
-                  });
-                })}
+                {year === currentYear ? (
+                  <h1>{year} current</h1>
+                ) : (
+                  <h1>{year}</h1>
+                )}
+                {itemMonth
+                  ? itemMonth.map((item) => {
+                      return <div>{item.month}</div>;
+                    })
+                  : null}
               </div>
             );
           })
