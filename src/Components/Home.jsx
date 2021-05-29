@@ -9,25 +9,28 @@ const Home = (props) => {
     (async () => {
       if (localStorage.getItem("token")) {
         const localToken = localStorage.getItem("token");
+        console.log(localToken);
         const decodedToken = jwt.decode(localToken);
-        const expiresAt = new Date(decodedToken.exp * 1000);
-        // CHECK IF IT IS VALID
-        if (expiresAt < new Date(Date.now())) {
-          localStorage.clear();
-        } else {
-          props.setToken(localToken);
-          // FETCH THE USER DATA
-          const response = await fetch(
-            "http://localhost:5000/user/" + decodedToken._id,
-            {
-              headers: {
-                Authorization: "Bearer " + localToken,
-              },
-            }
-          );
-          const data = await response.json();
-          props.setUserInfo(data);
+        if (decodedToken) {
+          const expiresAt = new Date(decodedToken.exp * 1000);
+          if (expiresAt < new Date(Date.now())) {
+            localStorage.clear();
+          } else {
+            props.setToken(localToken);
+            // FETCH THE USER DATA
+            const response = await fetch(
+              "http://localhost:5000/user/" + decodedToken._id,
+              {
+                headers: {
+                  Authorization: "Bearer " + localToken,
+                },
+              }
+            );
+            const data = await response.json();
+            props.setUserInfo(data);
+          }
         }
+        // CHECK IF IT IS VALID
       }
     })();
   }, []);
