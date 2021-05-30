@@ -19,23 +19,25 @@ const AddItem = (props) => {
   };
 
   const createItem = async () => {
-    const response = await fetch(
-      "http://localhost:5000/add/" + props.userInfo._id,
-      {
-        method: "POST",
-        headers: {
-          Authorization: "Bearer " + props.token,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: itemName,
-          price: itemPrice,
-          folder: itemFolder,
-        }),
-      }
+    await fetch("http://localhost:5000/add/" + props.userInfo._id, {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + props.token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: itemName,
+        price: itemPrice,
+        folder: itemFolder,
+      }),
+    });
+    props.setActiveYear(new Date().getFullYear());
+    props.setActiveMonth(
+      new Date().toLocaleDateString("default", { month: "long" })
     );
-    const data = await response.json();
-    console.log(data);
+    setItemPrice(0);
+    setItemName("");
+    setItemFolder("");
   };
   return (
     <div className="form-inline">
@@ -67,7 +69,13 @@ const AddItem = (props) => {
         />
       </div>{" "}
       <div className="col-3">
-        <button className="btn btn-primary" onClick={createItem}>
+        <button
+          className="btn btn-primary"
+          onClick={() => {
+            createItem();
+            props.getCurrentDateItems();
+          }}
+        >
           Add
         </button>
       </div>
