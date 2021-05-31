@@ -28,6 +28,21 @@ const Table = (props) => {
     setYearsToDisplay(data);
   };
 
+  // GET THE CURRENT MONTHS OF THE CURRENT YEAR
+  const getCurrentYearMonths = async (year) => {
+    if (!year) year = new Date().getFullYear();
+    const response = await fetch(
+      "http://localhost:5000/user/items/year/" + year,
+      {
+        headers: {
+          Authorization: "Bearer " + props.token,
+        },
+      }
+    );
+    const data = await response.json();
+    setMonthsToDisplay(data);
+  };
+
   // GET THE CURRENT MONTH AND YEAR DATA
   const getCurrentDateItems = async () => {
     const response = await fetch(
@@ -44,21 +59,7 @@ const Table = (props) => {
     );
     const data = await response.json();
     setItems(data);
-  };
-
-  // GET THE CURRENT MONTHS OF THE CURRENT YEAR
-  const getCurrentYearMonths = async (year) => {
-    if (!year) year = new Date().getFullYear();
-    const response = await fetch(
-      "http://localhost:5000/user/items/year/" + year,
-      {
-        headers: {
-          Authorization: "Bearer " + props.token,
-        },
-      }
-    );
-    const data = await response.json();
-    setMonthsToDisplay(data);
+    console.log("Got items");
   };
 
   // GET ACTIVE YEAR && RESET ACTIVE MONTH
@@ -74,12 +75,11 @@ const Table = (props) => {
 
   useEffect(() => {
     getAllYears();
-    getCurrentDateItems();
     getCurrentYearMonths();
   }, []);
 
   useEffect(() => {
-    getCurrentDateItems(activeYear, activeMonth);
+    getCurrentDateItems();
   }, [activeMonth]);
 
   return (
@@ -113,13 +113,7 @@ const Table = (props) => {
         {monthsToDisplay.map((month) => {
           return (
             <div key={uniqid()}>
-              <p
-                id={month}
-                onClick={(e) => {
-                  getActiveMonth(e);
-                  getCurrentDateItems();
-                }}
-              >
+              <p id={month} onClick={getActiveMonth}>
                 {month}
               </p>
             </div>
