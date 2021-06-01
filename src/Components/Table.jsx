@@ -18,7 +18,7 @@ const Table = (props) => {
 
   //GET ALL YEARS THAT HAVE DATA FROM THE CURRENT USER
   const getAllYears = async () => {
-    const response = await fetch("http://localhost:5000/user/items/year", {
+    const response = await fetch("http://localhost:5000/items/year", {
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + props.token,
@@ -31,14 +31,11 @@ const Table = (props) => {
   // GET THE CURRENT MONTHS OF THE CURRENT YEAR
   const getCurrentYearMonths = async (year) => {
     if (!year) year = new Date().getFullYear();
-    const response = await fetch(
-      "http://localhost:5000/user/items/year/" + year,
-      {
-        headers: {
-          Authorization: "Bearer " + props.token,
-        },
-      }
-    );
+    const response = await fetch("http://localhost:5000/items/year/" + year, {
+      headers: {
+        Authorization: "Bearer " + props.token,
+      },
+    });
     const data = await response.json();
     setMonthsToDisplay(data);
   };
@@ -46,10 +43,7 @@ const Table = (props) => {
   // GET THE CURRENT MONTH AND YEAR DATA
   const getCurrentDateItems = async () => {
     const response = await fetch(
-      "http://localhost:5000/user/items/current/" +
-        activeYear +
-        "/" +
-        activeMonth,
+      "http://localhost:5000/items/current/" + activeYear + "/" + activeMonth,
       {
         headers: {
           "Content-Type": "application/json",
@@ -59,7 +53,6 @@ const Table = (props) => {
     );
     const data = await response.json();
     setItems(data);
-    console.log("Got items");
   };
 
   // GET ACTIVE YEAR && RESET ACTIVE MONTH

@@ -8,17 +8,24 @@ import {
   FormGroup,
   Label,
   Input,
-  FormText,
   Container,
   InputGroupAddon,
   InputGroupText,
   InputGroup,
 } from "reactstrap";
+import uniqid from "uniqid";
+import FolderModal from "./FolderModal";
 
 const AddItem = (props) => {
   const [itemName, setItemName] = useState("");
   const [itemPrice, setItemPrice] = useState(0);
   const [itemFolder, setItemFolder] = useState("");
+  const [folders, setFolders] = useState([]);
+  const [modal, setModal] = useState(false);
+
+  const toggle = () => {
+    setModal(!modal);
+  };
 
   //INPUT HANDLERS
   const nameHandler = (e) => {
@@ -31,10 +38,12 @@ const AddItem = (props) => {
 
   const folderHandler = (e) => {
     setItemFolder(e.target.value);
+    console.log(e.target.value);
   };
 
   // CREATE A NEW ITEM
-  const createItem = async () => {
+  const createItem = async (e) => {
+    e.preventDefault();
     await fetch("http://localhost:5000/add/" + props.userInfo._id, {
       method: "POST",
       headers: {
@@ -59,19 +68,15 @@ const AddItem = (props) => {
     setItemFolder("");
   };
 
-  //ADD A NEW FOLDER
-  const addFolder = async () => {
-    console.log("fodler added");
-  };
-
   // GET CURRENT USER FOLDER
   const getFolders = async () => {
-    const response = await fetch("http://localhost:5000/user/folders", {
+    const response = await fetch("http://localhost:5000/folders", {
       headers: {
         Authorization: "Bearer " + props.token,
       },
     });
-    console.log(response);
+    const data = await response.json();
+    setFolders(data);
   };
 
   useEffect(() => {
@@ -79,19 +84,31 @@ const AddItem = (props) => {
   }, []);
 
   return (
-    <Container>
+    <Container className=" pt-2">
       <Form>
         <Row>
           <Col sm={4}>
             <FormGroup>
-              <Label>Price</Label>
-              <Input type="text" name="price" placeholder="Item price" />
+              <Label>Name</Label>
+              <Input
+                onChange={nameHandler}
+                type="text"
+                name="name"
+                placeholder="Item name"
+                value={itemName}
+              />
             </FormGroup>
           </Col>
           <Col sm={4}>
             <FormGroup>
-              <Label>Name</Label>
-              <Input type="text" name="name" placeholder="Item name" />
+              <Label>Price</Label>
+              <Input
+                onChange={priceHandler}
+                type="number"
+                name="price"
+                placeholder="Item price"
+                value={itemPrice}
+              />
             </FormGroup>
           </Col>
           <Col sm={4}>
@@ -99,25 +116,43 @@ const AddItem = (props) => {
               <Label>Folder</Label>
               <InputGroup>
                 <InputGroupAddon addonType="prepend">
-                  <InputGroupText
-                    onClick={() => {
-                      console.log("clicked");
-                    }}
-                  >
-                    +
-                  </InputGroupText>
+                  <InputGroupText onClick={toggle}>+</InputGroupText>
                 </InputGroupAddon>
-                <Input type="select" name="folder">
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
+                <Input
+                  type="select"
+                  name="folder"
+                  value={itemFolder}
+                  onChange={folderHandler}
+                >
+                  <option disabled value="">
+                    {folders.length > 0 ? "Select a folder" : "Create folder"}
+                  </option>
+                  {folders.map((fodler) => {
+                    return (
+                      <option key={uniqid()} value={fodler._id}>
+                        {fodler.name}
+                      </option>
+                    );
+                  })}
                 </Input>
               </InputGroup>
             </FormGroup>
           </Col>
         </Row>
+        <Col sm={12} className="justify-content-center d-flex mt-2">
+          <Button onClick={createItem} className="bg-primary">
+            Add Item
+          </Button>
+        </Col>
       </Form>
+      {modal ? (
+        <FolderModal
+          toggle={toggle}
+          modal={modal}
+          token={props.token}
+          getFolders={getFolders}
+        />
+      ) : null}
     </Container>
   );
 };
