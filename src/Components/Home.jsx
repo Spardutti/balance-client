@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import jwt from "jsonwebtoken";
-import Table from "./Table";
+import Main from "./Main";
 
 const Home = (props) => {
   useEffect(() => {
@@ -9,7 +9,6 @@ const Home = (props) => {
     (async () => {
       if (localStorage.getItem("token")) {
         const localToken = localStorage.getItem("token");
-        console.log(localToken);
         const decodedToken = jwt.decode(localToken);
         if (decodedToken) {
           const expiresAt = new Date(decodedToken.exp * 1000);
@@ -41,7 +40,7 @@ const Home = (props) => {
       {props.userInfo ? (
         <div className="content">
           <div className="img"></div>
-          <Table userInfo={props.userInfo} token={props.token} />
+          <Main userInfo={props.userInfo} token={props.token} />
         </div>
       ) : (
         <div className=" d-flex justify-content-center content align-items-center">

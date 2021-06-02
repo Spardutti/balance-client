@@ -15,6 +15,7 @@ import {
 } from "reactstrap";
 import uniqid from "uniqid";
 import FolderModal from "./FolderModal";
+import ErrorPopUp from "./ErrorPopUp";
 
 const AddItem = (props) => {
   const [itemName, setItemName] = useState("");
@@ -22,6 +23,9 @@ const AddItem = (props) => {
   const [itemFolder, setItemFolder] = useState("");
   const [folders, setFolders] = useState([]);
   const [modal, setModal] = useState(false);
+  const [popoverOpen, setPopoverOpen] = useState(false);
+
+  const popUpToggle = () => setPopoverOpen(!popoverOpen);
 
   const toggle = () => {
     setModal(!modal);
@@ -38,34 +42,37 @@ const AddItem = (props) => {
 
   const folderHandler = (e) => {
     setItemFolder(e.target.value);
-    console.log(e.target.value);
   };
 
   // CREATE A NEW ITEM
   const createItem = async (e) => {
     e.preventDefault();
-    await fetch("http://localhost:5000/add/" + props.userInfo._id, {
-      method: "POST",
-      headers: {
-        Authorization: "Bearer " + props.token,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: itemName,
-        price: itemPrice,
-        folder: itemFolder,
-      }),
-    });
-    // SET THE DATE TO CURRENT DATE, JUST IN CASE USER IS IN ANOTHER
-    //YEAR / MONTH THAT IS NOT THE CURRENT ONE
-    // AND RE RENDERS
-    props.setActiveYear(new Date().getFullYear());
-    props.setActiveMonth(
-      new Date().toLocaleDateString("default", { month: "long" })
-    );
-    setItemPrice(0);
-    setItemName("");
-    setItemFolder("");
+    if (!itemFolder || !itemName || !itemPrice) popUpToggle();
+    if (itemName && itemPrice && itemFolder) {
+      await fetch("http://localhost:5000/add/" + props.userInfo._id, {
+        method: "POST",
+        headers: {
+          Authorization: "Bearer " + props.token,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: itemName,
+          price: itemPrice,
+          folder: itemFolder,
+        }),
+      });
+      // SET THE DATE TO CURRENT DATE, JUST IN CASE USER IS IN ANOTHER
+      //YEAR / MONTH THAT IS NOT THE CURRENT ONE
+      // AND RE RENDERS
+      props.setActiveYear(new Date().getFullYear());
+      props.setActiveMonth(
+        new Date().toLocaleDateString("default", { month: "long" })
+      );
+      setItemPrice(0);
+      setItemName("");
+      setItemFolder("");
+      props.getCurrentDateItems();
+    }
   };
 
   // GET CURRENT USER FOLDER
@@ -140,7 +147,7 @@ const AddItem = (props) => {
           </Col>
         </Row>
         <Col sm={12} className="justify-content-center d-flex mt-2">
-          <Button onClick={createItem} className="bg-primary">
+          <Button id="Popover1" onClick={createItem} className="bg-primary">
             Add Item
           </Button>
         </Col>
@@ -152,6 +159,9 @@ const AddItem = (props) => {
           token={props.token}
           getFolders={getFolders}
         />
+      ) : null}
+      {popoverOpen ? (
+        <ErrorPopUp popoverOpen={popoverOpen} popUpToggle={popUpToggle} />
       ) : null}
     </Container>
   );

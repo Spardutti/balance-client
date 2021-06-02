@@ -2,6 +2,9 @@ import React from "react";
 import { useState, useEffect } from "react";
 import AddItem from "./AddItem";
 import uniqid from "uniqid";
+import Years from "./Years";
+import Months from "./Months";
+import ItemTable from "./ItemTable";
 
 const Table = (props) => {
   //STORES ALL THE YEARS THE USER HAVE DATA IN
@@ -86,34 +89,25 @@ const Table = (props) => {
       />
       {/* DISPLAY ALL THE YEARS WITH DATA */}
       <div>
-        {yearsToDisplay.map((year) => {
-          return (
-            <div key={uniqid()}>
-              <p
-                id={year}
-                onClick={(e) => {
-                  getCurrentYearMonths(year);
-                  getActiveYear(e);
-                }}
-              >
-                {year}
-              </p>
-            </div>
-          );
-        })}
+        <Years
+          yearsToDisplay={yearsToDisplay}
+          getCurrentYearMonths={getCurrentYearMonths}
+          getActiveYear={getActiveYear}
+        />
       </div>
       <div>
-        {monthsToDisplay.map((month) => {
-          return (
-            <div key={uniqid()}>
-              <p id={month} onClick={getActiveMonth}>
-                {month}
-              </p>
-            </div>
-          );
-        })}
+        <Months
+          monthsToDisplay={monthsToDisplay}
+          getActiveMonth={getActiveMonth}
+        />
       </div>
-      <h1>month </h1>
+      <h1>{activeMonth} </h1>
+
+      {items ? (
+        <ItemTable items={items} token={props.token} />
+      ) : (
+        <h1>no items</h1>
+      )}
       {items.map((item) => {
         return (
           <div key={uniqid()}>
