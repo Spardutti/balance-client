@@ -5,6 +5,7 @@ import uniqid from "uniqid";
 import Years from "./Years";
 import Months from "./Months";
 import ItemTable from "./ItemTable";
+import FoldersTab from "./FoldersTab";
 
 const Table = (props) => {
   //STORES ALL THE YEARS THE USER HAVE DATA IN
@@ -18,6 +19,7 @@ const Table = (props) => {
   const [activeMonth, setActiveMonth] = useState(
     new Date().toLocaleDateString("default", { month: "long" })
   );
+  const [priceTotal, setPriceTotal] = useState(0);
 
   //GET ALL YEARS THAT HAVE DATA FROM THE CURRENT USER
   const getAllYears = async () => {
@@ -56,6 +58,7 @@ const Table = (props) => {
     );
     const data = await response.json();
     setItems(data);
+    setPriceTotal(0);
   };
 
   // GET ACTIVE YEAR && RESET ACTIVE MONTH
@@ -101,20 +104,25 @@ const Table = (props) => {
           getActiveMonth={getActiveMonth}
         />
       </div>
-      <h1>{activeMonth} </h1>
-
+      <h1 className="text-center">{activeMonth} </h1>
+      <FoldersTab
+        token={props.token}
+        setItems={setItems}
+        activeYear={activeYear}
+        activeMonth={activeMonth}
+        getCurrentDateItems={getCurrentDateItems}
+        setPriceTotal={setPriceTotal}
+      />
       {items ? (
-        <ItemTable items={items} token={props.token} />
+        <ItemTable
+          items={items}
+          token={props.token}
+          priceTotal={priceTotal}
+          setPriceTotal={setPriceTotal}
+        />
       ) : (
         <h1>no items</h1>
       )}
-      {items.map((item) => {
-        return (
-          <div key={uniqid()}>
-            {item.name} {item.month} {item.year}
-          </div>
-        );
-      })}
     </div>
   );
 };

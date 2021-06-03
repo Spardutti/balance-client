@@ -43,6 +43,7 @@
 
 .content {
   position: relative;
+  min-height: 75vh;
 }
 
 .img {
@@ -55,6 +56,10 @@
   position: absolute;
   z-index: -1;
   opacity: 0.6;
+}
+
+.pizza {
+  color: red;
 }
 
 /***************************** GOOGLE BUTTON STYLE */

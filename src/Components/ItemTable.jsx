@@ -3,43 +3,38 @@ import { useState, useEffect } from "react";
 import uniqid from "uniqid";
 
 const ItemTable = (props) => {
-  const [folders, setFolders] = useState([]);
-  // GET CURRENT USER FOLDER
-  const getFolders = async () => {
-    const response = await fetch("http://localhost:5000/folders", {
-      headers: {
-        Authorization: "Bearer " + props.token,
-      },
-    });
-    const data = await response.json();
-    setFolders(data);
-  };
-
   useEffect(() => {
-    getFolders();
-  }, []);
+    props.items.map((item) => {
+      props.setPriceTotal((prev) => prev + item.price);
+    });
+  }, [props.items]);
 
   return (
-    <Table striped responsive size="sm">
+    <Table striped responsive size="sm" bordered hover className="text-center">
       <thead>
         <tr>
           <th>Item</th>
-          {folders.map((folder) => {
-            return <th key={uniqid()}>{folder.name}</th>;
-          })}
-          <th>Total</th>
+          <th>Price</th>
+          <th>Folder</th>
         </tr>
       </thead>
       <tbody>
         {props.items.map((item) => {
           return (
-            <tr>
+            <tr key={uniqid()}>
               <td>{item.name}</td>
               <td>{item.price}</td>
+              <th>{item.folder.name}</th>
             </tr>
           );
         })}
       </tbody>
+      <thead>
+        <tr>
+          <th>Total</th>
+          <th>{props.priceTotal} </th>
+        </tr>
+      </thead>
     </Table>
   );
 };

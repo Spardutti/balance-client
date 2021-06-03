@@ -30,6 +30,7 @@
 
 .content {
   position: relative;
+  min-height: 75vh;
 }
 .img {
   background-image: url("../src/images/financeBackground.jpg");
@@ -42,7 +43,9 @@
   z-index: -1;
   opacity: 0.6;
 }
-
+.pizza {
+  color: red;
+}
 /***************************** GOOGLE BUTTON STYLE */ /////////////
 $google-blue: #4285f4;
 $white: white;
