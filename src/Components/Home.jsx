@@ -18,7 +18,8 @@ const Home = (props) => {
             props.setToken(localToken);
             // FETCH THE USER DATA
             const response = await fetch(
-              "http://localhost:5000/user/" + decodedToken._id,
+              "https://infinite-woodland-48479.herokuapp.com/user/" +
+                decodedToken._id,
               {
                 headers: {
                   Authorization: "Bearer " + localToken,
@@ -57,7 +58,10 @@ const Home = (props) => {
                   className="google-icon"
                 />
               </div>
-              <a href="http://localhost:5000/google/login" className="btn-text">
+              <a
+                href="https://infinite-woodland-48479.herokuapp.com/google/login"
+                className="btn-text"
+              >
                 <b>Sign in with google</b>
               </a>
             </div>

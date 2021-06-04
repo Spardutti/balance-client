@@ -11,7 +11,7 @@ const Months = (props) => {
               <NavLink
                 id={month}
                 onClick={props.getActiveMonth}
-                className="text-dark"
+                className={props.activeMonth === month ? "active" : "text-dark"}
               >
                 {month}
               </NavLink>

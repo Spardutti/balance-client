@@ -1,7 +1,20 @@
 .header {
   background-color: rgb(45, 158, 167);
-  height: 20vh;
+  height: 15vh;
   width: 100vw;
+}
+body {
+  font-family: "Josefin Slab", serif;
+}
+h1 {
+  font-family: "Mate SC", serif;
+}
+i:hover {
+  cursor: pointer;
+}
+p {
+  font-family: "Great Vibes", cursive;
+  font-size: 25px;
 }
 .top-bar {
   width: 100vw;
@@ -30,7 +43,9 @@
 
 .content {
   position: relative;
-  min-height: 75vh;
+  min-height: 80vh;
+  width: 100vw;
+  overflow-x: hidden;
 }
 .img {
   background-image: url("../src/images/financeBackground.jpg");
@@ -43,8 +58,11 @@
   z-index: -1;
   opacity: 0.6;
 }
-.pizza {
+.selectedTab {
+  background-color: black;
   color: red;
+  font-weight: bold;
+  border: 1px solid black;
 }
 /***************************** GOOGLE BUTTON STYLE */ /////////////
 $google-blue: #4285f4;

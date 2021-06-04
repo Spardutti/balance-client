@@ -23,12 +23,15 @@ const Table = (props) => {
 
   //GET ALL YEARS THAT HAVE DATA FROM THE CURRENT USER
   const getAllYears = async () => {
-    const response = await fetch("http://localhost:5000/items/year", {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + props.token,
-      },
-    });
+    const response = await fetch(
+      "https://infinite-woodland-48479.herokuapp.com/items/year",
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + props.token,
+        },
+      }
+    );
     const data = await response.json();
     setYearsToDisplay(data);
   };
@@ -36,11 +39,14 @@ const Table = (props) => {
   // GET THE CURRENT MONTHS OF THE CURRENT YEAR
   const getCurrentYearMonths = async (year) => {
     if (!year) year = new Date().getFullYear();
-    const response = await fetch("http://localhost:5000/items/year/" + year, {
-      headers: {
-        Authorization: "Bearer " + props.token,
-      },
-    });
+    const response = await fetch(
+      "https://infinite-woodland-48479.herokuapp.com/items/year/" + year,
+      {
+        headers: {
+          Authorization: "Bearer " + props.token,
+        },
+      }
+    );
     const data = await response.json();
     setMonthsToDisplay(data);
   };
@@ -48,7 +54,10 @@ const Table = (props) => {
   // GET THE CURRENT MONTH AND YEAR DATA
   const getCurrentDateItems = async () => {
     const response = await fetch(
-      "http://localhost:5000/items/current/" + activeYear + "/" + activeMonth,
+      "https://infinite-woodland-48479.herokuapp.com/items/current/" +
+        activeYear +
+        "/" +
+        activeMonth,
       {
         headers: {
           "Content-Type": "application/json",
@@ -96,12 +105,14 @@ const Table = (props) => {
           yearsToDisplay={yearsToDisplay}
           getCurrentYearMonths={getCurrentYearMonths}
           getActiveYear={getActiveYear}
+          activeYear={activeYear}
         />
       </div>
       <div>
         <Months
           monthsToDisplay={monthsToDisplay}
           getActiveMonth={getActiveMonth}
+          activeMonth={activeMonth}
         />
       </div>
       <h1 className="text-center">{activeMonth} </h1>
@@ -119,6 +130,7 @@ const Table = (props) => {
           token={props.token}
           priceTotal={priceTotal}
           setPriceTotal={setPriceTotal}
+          getCurrentDateItems={getCurrentDateItems}
         />
       ) : (
         <h1>no items</h1>

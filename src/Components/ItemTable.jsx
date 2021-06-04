@@ -1,5 +1,5 @@
 import { Table } from "reactstrap";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import uniqid from "uniqid";
 
 const ItemTable = (props) => {
@@ -9,8 +9,22 @@ const ItemTable = (props) => {
     });
   }, [props.items]);
 
+  const deleteItem = async (id) => {
+    await fetch(
+      "https://infinite-woodland-48479.herokuapp.com/item/delete/" + id,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: "Bearer " + props.token,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    props.getCurrentDateItems();
+  };
+
   return (
-    <Table striped responsive size="sm" bordered hover className="text-center">
+    <Table striped responsive bordered className="text-center">
       <thead>
         <tr>
           <th>Item</th>
@@ -22,9 +36,17 @@ const ItemTable = (props) => {
         {props.items.map((item) => {
           return (
             <tr key={uniqid()}>
-              <td>{item.name}</td>
+              <td>
+                {item.name}{" "}
+                <i
+                  className="far fa-trash-alt"
+                  onClick={() => {
+                    deleteItem(item._id);
+                  }}
+                ></i>
+              </td>
               <td>{item.price}</td>
-              <th>{item.folder.name}</th>
+              <td>{item.folder.name}</td>
             </tr>
           );
         })}

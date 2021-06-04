@@ -11,8 +11,8 @@ const Header = (props) => {
                 Welcome {props.userInfo.username.split(" ")[0]}
               </h5>
               <a
-                href="http://localhost:5000/logout"
-                className="btn btn-dark text-light "
+                href="https://infinite-woodland-48479.herokuapp.com/logout"
+                className="btn btn-dark text-light btn-sm"
                 onClick={() => {
                   localStorage.clear();
                 }}
@@ -27,10 +27,14 @@ const Header = (props) => {
       )}
       <div className="header">
         <div className=" d-flex flex-column justify-content-center h-75 align-items-center">
-          <h1 className="display-5">Balance</h1>
-          <p className="blockquote-footer mt-1 text-dark">
-            Balance your income, Balance your life
-          </p>
+          <div>
+            <h1 className="display-5">Balance</h1>
+          </div>
+          <div>
+            <p className=" mt-1 text-dark">
+              Balance your income, Balance your life
+            </p>
+          </div>
         </div>
       </div>
     </div>

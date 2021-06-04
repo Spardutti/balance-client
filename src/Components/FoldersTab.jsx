@@ -14,11 +14,14 @@ const FoldersTab = (props) => {
   };
   // GET CURRENT USER FOLDER
   const getFolders = async () => {
-    const response = await fetch("http://localhost:5000/folders", {
-      headers: {
-        Authorization: "Bearer " + props.token,
-      },
-    });
+    const response = await fetch(
+      "https://infinite-woodland-48479.herokuapp.com/folders",
+      {
+        headers: {
+          Authorization: "Bearer " + props.token,
+        },
+      }
+    );
     const data = await response.json();
     setFolders(data);
   };
@@ -26,7 +29,7 @@ const FoldersTab = (props) => {
   // GET ITEMS FROM SPECIFIC FOLDER
   const getFolderItems = async (id) => {
     const response = await fetch(
-      "http://localhost:5000/folder/" +
+      "https://infinite-woodland-48479.herokuapp.com/folder/" +
         id +
         "/" +
         props.activeYear +
@@ -56,9 +59,7 @@ const FoldersTab = (props) => {
               toggle("All");
               props.getCurrentDateItems();
             }}
-            className={
-              "text-dark " + (activeFolder === "All" ? "active" : null)
-            }
+            className={activeFolder === "All" ? " active" : "text-dark"}
           >
             All
           </NavLink>
@@ -72,7 +73,7 @@ const FoldersTab = (props) => {
                   getFolderItems(folder._id);
                 }}
                 className={
-                  "text-dark " + (activeFolder === folder.name ? "pizza" : null)
+                  activeFolder === folder.name ? " active" : "text-dark"
                 }
               >
                 {folder.name}

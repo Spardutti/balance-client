@@ -49,18 +49,22 @@ const AddItem = (props) => {
     e.preventDefault();
     if (!itemFolder || !itemName || !itemPrice) popUpToggle();
     if (itemName && itemPrice && itemFolder) {
-      await fetch("http://localhost:5000/add/" + props.userInfo._id, {
-        method: "POST",
-        headers: {
-          Authorization: "Bearer " + props.token,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: itemName,
-          price: itemPrice,
-          folder: itemFolder,
-        }),
-      });
+      await fetch(
+        "https://infinite-woodland-48479.herokuapp.com/add/" +
+          props.userInfo._id,
+        {
+          method: "POST",
+          headers: {
+            Authorization: "Bearer " + props.token,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: itemName,
+            price: itemPrice,
+            folder: itemFolder,
+          }),
+        }
+      );
       // SET THE DATE TO CURRENT DATE, JUST IN CASE USER IS IN ANOTHER
       //YEAR / MONTH THAT IS NOT THE CURRENT ONE
       // AND RE RENDERS
@@ -77,11 +81,14 @@ const AddItem = (props) => {
 
   // GET CURRENT USER FOLDER
   const getFolders = async () => {
-    const response = await fetch("http://localhost:5000/folders", {
-      headers: {
-        Authorization: "Bearer " + props.token,
-      },
-    });
+    const response = await fetch(
+      "https://infinite-woodland-48479.herokuapp.com/folders",
+      {
+        headers: {
+          Authorization: "Bearer " + props.token,
+        },
+      }
+    );
     const data = await response.json();
     setFolders(data);
   };
@@ -123,7 +130,12 @@ const AddItem = (props) => {
               <Label>Folder</Label>
               <InputGroup>
                 <InputGroupAddon addonType="prepend">
-                  <InputGroupText onClick={toggle}>+</InputGroupText>
+                  <InputGroupText
+                    onClick={toggle}
+                    className="bg-success text-light"
+                  >
+                    +
+                  </InputGroupText>
                 </InputGroupAddon>
                 <Input
                   type="select"

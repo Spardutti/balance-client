@@ -14,7 +14,11 @@ const Years = (props) => {
                   props.getCurrentYearMonths(year);
                   props.getActiveYear(e);
                 }}
-                className="text-dark  "
+                className={
+                  props.activeYear === year
+                    ? "active mt-2 mb-2"
+                    : "text-dark mt-2 mb-2"
+                }
               >
                 {year}
               </NavLink>
