@@ -60,7 +60,9 @@ const Table = (props) => {
       "https://infinite-woodland-48479.herokuapp.com/items/current/" +
         activeYear +
         "/" +
-        activeMonth,
+        activeMonth +
+        "/" +
+        props.userInfo._id,
       {
         headers: {
           "Content-Type": "application/json",
