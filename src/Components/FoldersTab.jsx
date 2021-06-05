@@ -5,6 +5,8 @@ import uniqid from "uniqid";
 const FoldersTab = (props) => {
   const [folders, setFolders] = useState([]);
   const [activeFolder, setActiveFolder] = useState("All");
+  const [folderId, setFolderId] = useState();
+  const [showPop, setShowPop] = useState(false);
 
   const toggle = (tab) => {
     if (activeFolder !== tab) {
@@ -28,6 +30,7 @@ const FoldersTab = (props) => {
 
   // GET ITEMS FROM SPECIFIC FOLDER
   const getFolderItems = async (id) => {
+    props.setLoading(true);
     const response = await fetch(
       "https://infinite-woodland-48479.herokuapp.com/folder/" +
         id +
@@ -44,6 +47,37 @@ const FoldersTab = (props) => {
     );
     const data = await response.json();
     props.setItems(data);
+    if (response) props.setLoading(false);
+  };
+
+  //CHECK IF FOLDER IS EMPTY
+  const checkIfFolderEmpty = async (id) => {
+    const response = await fetch(
+      "https://infinite-woodland-48479.herokuapp.com/item/folder/" + folderId,
+      {
+        headers: {
+          Authorization: "Bearer " + props.token,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const data = await response.json();
+    if (data.length === 0) {
+      deleteFolder();
+    }
+  };
+
+  // DELETE FOLDER
+  const deleteFolder = async () => {
+    await fetch(
+      "https://infinite-woodland-48479.herokuapp.com/folder/delete/" + folderId,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: "Bearer " + props.token,
+        },
+      }
+    );
   };
 
   useEffect(() => {
@@ -68,15 +102,23 @@ const FoldersTab = (props) => {
           return (
             <NavItem key={uniqid()}>
               <NavLink
+                id={folder._id}
                 onClick={() => {
                   toggle(folder.name);
                   getFolderItems(folder._id);
+                  setFolderId(folder._id);
                 }}
                 className={
                   activeFolder === folder.name ? " active" : "text-dark"
                 }
               >
-                {folder.name}
+                {folder.name}{" "}
+                {activeFolder === folder.name ? (
+                  <i
+                    className="far fa-trash-alt"
+                    onClick={checkIfFolderEmpty}
+                  ></i>
+                ) : null}
               </NavLink>
             </NavItem>
           );

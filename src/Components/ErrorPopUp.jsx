@@ -11,7 +11,7 @@ const ErrorPopUp = (props) => {
         target="Popover1"
         toggle={props.popUpToggle}
       >
-        <PopoverBody>Please fill all the fields</PopoverBody>
+        <PopoverBody>{props.msg}</PopoverBody>
       </Popover>
     </div>
   );

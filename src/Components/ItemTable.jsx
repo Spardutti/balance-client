@@ -1,14 +1,16 @@
 import { Table } from "reactstrap";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import uniqid from "uniqid";
 
 const ItemTable = (props) => {
+  // GET ITEMS
   useEffect(() => {
     props.items.map((item) => {
       props.setPriceTotal((prev) => prev + item.price);
     });
   }, [props.items]);
 
+  // DELETE ITEM
   const deleteItem = async (id) => {
     await fetch(
       "https://infinite-woodland-48479.herokuapp.com/item/delete/" + id,

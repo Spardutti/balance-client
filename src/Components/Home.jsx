@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import jwt from "jsonwebtoken";
 import Main from "./Main";
+import { Spinner } from "reactstrap";
 
 const Home = (props) => {
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     // check for local token
     (async () => {
@@ -41,31 +43,41 @@ const Home = (props) => {
       {props.userInfo ? (
         <div className="content">
           <div className="img"></div>
-          <Main userInfo={props.userInfo} token={props.token} />
+          <Main
+            userInfo={props.userInfo}
+            token={props.token}
+            loading={loading}
+            setLoading={setLoading}
+          />
         </div>
       ) : (
         <div className=" d-flex justify-content-center content align-items-center">
           <div className="img"></div>
-          <div className="google-container">
-            <div>
-              <p>Please log in to continue</p>
-            </div>
-            <div className="google-btn">
-              <div className="google-icon-wrapper">
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
-                  alt=""
-                  className="google-icon"
-                />
+          {loading ? (
+            <Spinner type="grow" color="dark" />
+          ) : (
+            <div className="google-container">
+              <div>
+                <p>Please log in to continue</p>
               </div>
-              <a
-                href="https://infinite-woodland-48479.herokuapp.com/google/login"
-                className="btn-text"
-              >
-                <b>Sign in with google</b>
-              </a>
+              <div className="google-btn">
+                <div className="google-icon-wrapper">
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
+                    alt=""
+                    className="google-icon"
+                  />
+                </div>
+                <a
+                  href="https://infinite-woodland-48479.herokuapp.com/google/login"
+                  className="btn-text"
+                  onClick={() => setLoading(true)}
+                >
+                  <b>Sign in with google</b>
+                </a>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       )}
     </div>

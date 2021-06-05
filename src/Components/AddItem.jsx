@@ -12,6 +12,7 @@ import {
   InputGroupAddon,
   InputGroupText,
   InputGroup,
+  Spinner,
 } from "reactstrap";
 import uniqid from "uniqid";
 import FolderModal from "./FolderModal";
@@ -49,7 +50,8 @@ const AddItem = (props) => {
     e.preventDefault();
     if (!itemFolder || !itemName || !itemPrice) popUpToggle();
     if (itemName && itemPrice && itemFolder) {
-      await fetch(
+      props.setLoading(true);
+      const response = await fetch(
         "https://infinite-woodland-48479.herokuapp.com/add/" +
           props.userInfo._id,
         {
@@ -76,6 +78,9 @@ const AddItem = (props) => {
       setItemName("");
       setItemFolder("");
       props.getCurrentDateItems();
+      if (response) {
+        props.setLoading(false);
+      }
     }
   };
 
@@ -130,11 +135,10 @@ const AddItem = (props) => {
               <Label>Folder</Label>
               <InputGroup>
                 <InputGroupAddon addonType="prepend">
-                  <InputGroupText
-                    onClick={toggle}
-                    className="bg-success text-light"
-                  >
-                    +
+                  <InputGroupText onClick={toggle} className="">
+                    <div>
+                      <i className="fas fa-folder-plus"></i>
+                    </div>
                   </InputGroupText>
                 </InputGroupAddon>
                 <Input
@@ -159,9 +163,13 @@ const AddItem = (props) => {
           </Col>
         </Row>
         <Col sm={12} className="justify-content-center d-flex mt-2">
-          <Button id="Popover1" onClick={createItem} className="bg-primary">
-            Add Item
-          </Button>
+          {props.loading ? (
+            <Spinner />
+          ) : (
+            <Button id="Popover1" onClick={createItem} className="bg-primary">
+              Add Item
+            </Button>
+          )}
         </Col>
       </Form>
       {modal ? (
@@ -173,7 +181,11 @@ const AddItem = (props) => {
         />
       ) : null}
       {popoverOpen ? (
-        <ErrorPopUp popoverOpen={popoverOpen} popUpToggle={popUpToggle} />
+        <ErrorPopUp
+          popoverOpen={popoverOpen}
+          popUpToggle={popUpToggle}
+          msg={"Please fill all the field"}
+        />
       ) : null}
     </Container>
   );

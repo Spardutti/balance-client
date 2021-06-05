@@ -6,6 +6,7 @@ import Years from "./Years";
 import Months from "./Months";
 import ItemTable from "./ItemTable";
 import FoldersTab from "./FoldersTab";
+import { Spinner } from "reactstrap";
 
 const Table = (props) => {
   //STORES ALL THE YEARS THE USER HAVE DATA IN
@@ -20,6 +21,7 @@ const Table = (props) => {
     new Date().toLocaleDateString("default", { month: "long" })
   );
   const [priceTotal, setPriceTotal] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   //GET ALL YEARS THAT HAVE DATA FROM THE CURRENT USER
   const getAllYears = async () => {
@@ -53,6 +55,7 @@ const Table = (props) => {
 
   // GET THE CURRENT MONTH AND YEAR DATA
   const getCurrentDateItems = async () => {
+    setLoading(true);
     const response = await fetch(
       "https://infinite-woodland-48479.herokuapp.com/items/current/" +
         activeYear +
@@ -68,6 +71,7 @@ const Table = (props) => {
     const data = await response.json();
     setItems(data);
     setPriceTotal(0);
+    if (response) setLoading(false);
   };
 
   // GET ACTIVE YEAR && RESET ACTIVE MONTH
@@ -84,6 +88,7 @@ const Table = (props) => {
   useEffect(() => {
     getAllYears();
     getCurrentYearMonths();
+    props.setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -98,6 +103,8 @@ const Table = (props) => {
         getCurrentDateItems={getCurrentDateItems}
         setActiveYear={setActiveYear}
         setActiveMonth={setActiveMonth}
+        setLoading={props.setLoading}
+        loading={props.loading}
       />
       {/* DISPLAY ALL THE YEARS WITH DATA */}
       <div>
@@ -123,8 +130,14 @@ const Table = (props) => {
         activeMonth={activeMonth}
         getCurrentDateItems={getCurrentDateItems}
         setPriceTotal={setPriceTotal}
+        setLoading={setLoading}
+        loading={loading}
       />
-      {items ? (
+      {loading ? (
+        <div className="d-flex justify-content-center mt-3">
+          <Spinner />
+        </div>
+      ) : (
         <ItemTable
           items={items}
           token={props.token}
@@ -132,8 +145,6 @@ const Table = (props) => {
           setPriceTotal={setPriceTotal}
           getCurrentDateItems={getCurrentDateItems}
         />
-      ) : (
-        <h1>no items</h1>
       )}
     </div>
   );

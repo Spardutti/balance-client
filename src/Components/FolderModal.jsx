@@ -5,16 +5,10 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Col,
-  Row,
   Form,
   FormGroup,
   Label,
   Input,
-  Container,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
 } from "reactstrap";
 
 const FolderModal = (props) => {
