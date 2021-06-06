@@ -35,23 +35,27 @@ const ItemTable = (props) => {
         </tr>
       </thead>
       <tbody>
-        {props.items.map((item) => {
-          return (
-            <tr key={uniqid()}>
-              <td>
-                {item.name}{" "}
-                <i
-                  className="far fa-trash-alt"
-                  onClick={() => {
-                    deleteItem(item._id);
-                  }}
-                ></i>
-              </td>
-              <td>{item.price}</td>
-              <td>{item.folder.name}</td>
-            </tr>
-          );
-        })}
+        {props.items ? (
+          props.items.map((item) => {
+            return (
+              <tr key={uniqid()}>
+                <td>
+                  {item.name}{" "}
+                  <i
+                    className="far fa-trash-alt"
+                    onClick={() => {
+                      deleteItem(item._id);
+                    }}
+                  ></i>
+                </td>
+                <td>{item.price}</td>
+                <td>{item.folder.name}</td>
+              </tr>
+            );
+          })
+        ) : (
+          <p>no items</p>
+        )}
       </tbody>
       <thead>
         <tr>
