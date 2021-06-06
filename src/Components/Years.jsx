@@ -17,7 +17,7 @@ const Years = (props) => {
                 className={
                   props.activeYear === year
                     ? "active mt-2 mb-2"
-                    : "text-dark mt-2 mb-2"
+                    : "text-dark mt-2 mb-2 tabs"
                 }
               >
                 {year}

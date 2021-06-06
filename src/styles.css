@@ -4,12 +4,6 @@
   width: 100vw;
 }
 
-@media screen and (max-width: 400px) {
-  .top-bar {
-    height: 10vh;
-  }
-}
-
 body {
   font-family: "Josefin Slab", serif;
 }
@@ -31,6 +25,16 @@ p {
   width: 100vw;
   height: 5vh;
   background-color: #2d9ea7;
+}
+
+@media screen and (max-width: 400px) {
+  .top-bar {
+    height: 10vh;
+  }
+}
+
+.tabs {
+  cursor: pointer;
 }
 
 .title {

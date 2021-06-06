@@ -6,7 +6,6 @@ const FoldersTab = (props) => {
   const [folders, setFolders] = useState([]);
   const [activeFolder, setActiveFolder] = useState("All");
   const [folderId, setFolderId] = useState();
-  const [showPop, setShowPop] = useState(false);
 
   const toggle = (tab) => {
     if (activeFolder !== tab) {
@@ -93,7 +92,7 @@ const FoldersTab = (props) => {
               toggle("All");
               props.getCurrentDateItems();
             }}
-            className={activeFolder === "All" ? " active" : "text-dark"}
+            className={activeFolder === "All" ? " active" : "text-dark tabs"}
           >
             All
           </NavLink>
@@ -109,7 +108,7 @@ const FoldersTab = (props) => {
                   setFolderId(folder._id);
                 }}
                 className={
-                  activeFolder === folder.name ? " active" : "text-dark"
+                  activeFolder === folder.name ? " active" : "text-dark tabs"
                 }
               >
                 {folder.name}{" "}

@@ -20,7 +20,7 @@ import ErrorPopUp from "./ErrorPopUp";
 
 const AddItem = (props) => {
   const [itemName, setItemName] = useState("");
-  const [itemPrice, setItemPrice] = useState(0);
+  const [itemPrice, setItemPrice] = useState();
   const [itemFolder, setItemFolder] = useState("");
   const [folders, setFolders] = useState([]);
   const [modal, setModal] = useState(false);
@@ -74,7 +74,7 @@ const AddItem = (props) => {
       props.setActiveMonth(
         new Date().toLocaleDateString("default", { month: "long" })
       );
-      setItemPrice(0);
+      setItemPrice("");
       setItemName("");
       setItemFolder("");
       props.getCurrentDateItems();
@@ -127,7 +127,7 @@ const AddItem = (props) => {
                 onChange={priceHandler}
                 type="number"
                 name="price"
-                placeholder="How much you paid for"
+                placeholder="How much did you pay for"
                 value={itemPrice}
               />
             </FormGroup>
