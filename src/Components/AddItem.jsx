@@ -104,12 +104,13 @@ const AddItem = (props) => {
 
   return (
     <Container className=" pt-2">
-      <Form autoComplete={"off"}>
+      <Form autoComplete="off">
         <Row>
           <Col sm={4}>
             <FormGroup>
               <Label>Description</Label>
               <Input
+                autoComplete="off"
                 onChange={nameHandler}
                 type="text"
                 name="name"
@@ -122,6 +123,7 @@ const AddItem = (props) => {
             <FormGroup>
               <Label>Amount Spent</Label>
               <Input
+                autoComplete="off"
                 onChange={priceHandler}
                 type="number"
                 name="price"
