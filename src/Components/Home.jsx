@@ -32,7 +32,6 @@ const Home = (props) => {
             props.setUserInfo(data);
           }
         }
-        // CHECK IF IT IS VALID
       }
     })();
   }, []);
