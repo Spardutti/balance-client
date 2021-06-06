@@ -108,19 +108,19 @@ const AddItem = (props) => {
         <Row>
           <Col sm={4}>
             <FormGroup>
-              <Label>Name</Label>
+              <Label>Description</Label>
               <Input
                 onChange={nameHandler}
                 type="text"
                 name="name"
-                placeholder="Item name"
+                placeholder="what you bought/paid"
                 value={itemName}
               />
             </FormGroup>
           </Col>
           <Col sm={4}>
             <FormGroup>
-              <Label>Price</Label>
+              <Label>Amount Spent</Label>
               <Input
                 onChange={priceHandler}
                 type="number"

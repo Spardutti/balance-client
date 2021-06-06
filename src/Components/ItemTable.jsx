@@ -29,8 +29,8 @@ const ItemTable = (props) => {
     <Table striped responsive bordered className="text-center">
       <thead>
         <tr>
-          <th>Item</th>
-          <th>Price</th>
+          <th>Description</th>
+          <th>Spent</th>
           <th>Folder</th>
         </tr>
       </thead>

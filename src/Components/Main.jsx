@@ -70,7 +70,6 @@ const Table = (props) => {
     );
     const data = await response.json();
     setItems(data);
-    alert(activeMonth);
     setPriceTotal(0);
     if (response) setLoading(false);
   };
