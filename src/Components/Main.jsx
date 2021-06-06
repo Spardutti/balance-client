@@ -18,7 +18,7 @@ const Table = (props) => {
   // STORE THE YEAR AND MONTHS FOR FUTURE SEARCHES
   const [activeYear, setActiveYear] = useState(new Date().getFullYear());
   const [activeMonth, setActiveMonth] = useState(
-    new Date().toLocaleDateString("default", { month: "long" })
+    new Date().toDateString("default", { month: "long" })
   );
   const [priceTotal, setPriceTotal] = useState(0);
   const [loading, setLoading] = useState(false);
