@@ -127,7 +127,7 @@ const AddItem = (props) => {
                 onChange={priceHandler}
                 type="number"
                 name="price"
-                placeholder="Item price"
+                placeholder="How much you paid for"
                 value={itemPrice}
               />
             </FormGroup>

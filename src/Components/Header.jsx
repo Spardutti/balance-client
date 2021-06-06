@@ -32,7 +32,7 @@ const Header = (props) => {
           </div>
           <div>
             <p className=" mt-1 text-dark">
-              Balance your income, Balance your life
+              Balance your expenses, Balance your life
             </p>
           </div>
         </div>
