@@ -59,6 +59,9 @@ const ItemTable = (props) => {
     );
 
     props.getCurrentDateItems();
+    setItemName("");
+    setItemPrice("");
+    setItemId("");
   };
 
   return (
