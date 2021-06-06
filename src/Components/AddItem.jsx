@@ -104,7 +104,7 @@ const AddItem = (props) => {
 
   return (
     <Container className=" pt-2">
-      <Form>
+      <Form autoComplete={"off"}>
         <Row>
           <Col sm={4}>
             <FormGroup>
