@@ -70,6 +70,7 @@ const Table = (props) => {
     );
     const data = await response.json();
     setItems(data);
+    alert(data.length);
     setPriceTotal(0);
     if (response) setLoading(false);
   };
