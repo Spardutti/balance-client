@@ -92,7 +92,9 @@ const Home = (props) => {
           )}
         </div>
       )}
-      {firstVisit ? <FirstVisit /> : null}
+      {firstVisit ? (
+        <FirstVisit firstVisit={firstVisit} setFirstVisit={setFirstVisit} />
+      ) : null}
     </div>
   );
 };
