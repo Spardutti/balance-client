@@ -47,7 +47,7 @@ const Home = (props) => {
         setFirstVisit(true);
       }
     }
-  }, []);
+  }, [props.userInfo]);
 
   return (
     <div>
