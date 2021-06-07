@@ -6,16 +6,30 @@ const FolderModal = (props) => {
     props.setFirstVisit(!props.fisrtVisit);
   };
 
-  const acceptButton = () => {
+  const acceptButton = async () => {
     toggle();
     console.log(props.firstVisit);
+
+    const response = await fetch(
+      "https://infinite-woodland-48479.herokuapp.com/user/" +
+        props.userInfo._id,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + props.token,
+        },
+      }
+    );
+    const data = await response.json();
+    console.log(data);
   };
 
   return (
     <Modal isOpen={props.firstVisit}>
       <ModalHeader toggle={toggle}>Welcome!</ModalHeader>
       <ModalBody>
-        <p>
+        <p className="welcome-text">
           Items you add will be saved in the current month and year, you can
           specify a folder to keep things organized, when a new month starts,
           the program will automatically save new items in the new month. <br />
