@@ -7,6 +7,7 @@ import FirstVisit from "./FirstVisit";
 
 const Home = (props) => {
   const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     // check for local token
     (async () => {
@@ -80,7 +81,11 @@ const Home = (props) => {
           )}
         </div>
       )}
-      {props.userInfo.firstVisit ? <FirstVisit /> : null}
+      {props.userInfo ? (
+        props.userInfo.firstVisit ? (
+          <FirstVisit />
+        ) : null
+      ) : null}
     </div>
   );
 };
