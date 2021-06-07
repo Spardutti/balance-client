@@ -25,6 +25,7 @@ const FoldersTab = (props) => {
     );
     const data = await response.json();
     setFolders(data);
+    props.setFolderAdded(false);
   };
 
   // GET ITEMS FROM SPECIFIC FOLDER
@@ -63,7 +64,7 @@ const FoldersTab = (props) => {
     const data = await response.json();
     if (data.length === 0) {
       deleteFolder();
-    }
+    } else alert("Please delete all items before deleting the folder");
   };
 
   // DELETE FOLDER
@@ -77,11 +78,12 @@ const FoldersTab = (props) => {
         },
       }
     );
+    getFolders();
   };
 
   useEffect(() => {
     getFolders();
-  }, []);
+  }, [props.folderAdded]);
 
   return (
     <div className="d-flex justify-content-center">

@@ -21,6 +21,7 @@ const Table = (props) => {
   );
   const [priceTotal, setPriceTotal] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [folderAdded, setFolderAdded] = useState(false);
 
   //GET ALL YEARS THAT HAVE DATA FROM THE CURRENT USER
   const getAllYears = async () => {
@@ -104,6 +105,7 @@ const Table = (props) => {
         setActiveMonth={setActiveMonth}
         setLoading={props.setLoading}
         loading={props.loading}
+        setFolderAdded={setFolderAdded}
       />
       {/* DISPLAY ALL THE YEARS WITH DATA */}
       <div>
@@ -131,6 +133,8 @@ const Table = (props) => {
         setPriceTotal={setPriceTotal}
         setLoading={setLoading}
         loading={loading}
+        setFolderAdded={setFolderAdded}
+        folderAdded={folderAdded}
       />
       {loading ? (
         <div className="d-flex justify-content-center mt-3">

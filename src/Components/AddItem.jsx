@@ -180,6 +180,7 @@ const AddItem = (props) => {
           modal={modal}
           token={props.token}
           getFolders={getFolders}
+          setFolderAdded={props.setFolderAdded}
         />
       ) : null}
       {popoverOpen ? (

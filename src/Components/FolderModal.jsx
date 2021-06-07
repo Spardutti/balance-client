@@ -31,6 +31,7 @@ const FolderModal = (props) => {
     });
     props.toggle();
     props.getFolders();
+    props.setFolderAdded(true);
   };
 
   return (
