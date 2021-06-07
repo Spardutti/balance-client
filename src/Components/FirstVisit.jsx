@@ -3,7 +3,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
 const FolderModal = (props) => {
   const toggle = () => {
-    props.setFirstVisit(!props.fisrtVisit);
+    props.setFirstVisit(!props.firstVisit);
   };
 
   const acceptButton = async () => {
