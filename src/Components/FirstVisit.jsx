@@ -18,7 +18,7 @@ const FolderModal = (props) => {
         <p>
           Items you add will be saved in the current month and year, you can
           specify a folder to keep things organized, when a new month starts,
-          the program will automatically save new items in the new month. <br />{" "}
+          the program will automatically save new items in the new month. <br />
           Same goes for the year. <br />
           you cand edit and delete items description and price, but not the
           date, be careful with that. <br />
