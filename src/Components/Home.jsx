@@ -3,6 +3,7 @@ import Header from "./Header";
 import jwt from "jsonwebtoken";
 import Main from "./Main";
 import { Spinner } from "reactstrap";
+import FirstVisit from "./FirstVisit";
 
 const Home = (props) => {
   const [loading, setLoading] = useState(false);
@@ -79,6 +80,7 @@ const Home = (props) => {
           )}
         </div>
       )}
+      {props.userInfo.firstVisit ? <FirstVisit /> : null}
     </div>
   );
 };
