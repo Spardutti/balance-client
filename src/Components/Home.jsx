@@ -7,6 +7,7 @@ import FirstVisit from "./FirstVisit";
 
 const Home = (props) => {
   const [loading, setLoading] = useState(false);
+  const [firstVisit, setFirstVisit] = useState();
 
   useEffect(() => {
     // check for local token
@@ -36,6 +37,16 @@ const Home = (props) => {
         }
       }
     })();
+  }, []);
+
+  //CHECK IF IT IS USER FIRST VISIT
+  useEffect(() => {
+    if (props.userInfo) {
+      if (props.userInfo.firstVisit) {
+        alert("Hi!");
+        setFirstVisit(true);
+      }
+    }
   }, []);
 
   return (
@@ -81,11 +92,7 @@ const Home = (props) => {
           )}
         </div>
       )}
-      {props.userInfo ? (
-        props.userInfo.firstVisit ? (
-          <FirstVisit />
-        ) : null
-      ) : null}
+      {firstVisit ? <FirstVisit /> : null}
     </div>
   );
 };
