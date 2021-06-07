@@ -1,11 +1,14 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Mate+SC&family=Noto+Sans+JP:wght@300&display=swap");
 .header {
   background-color: rgb(45, 158, 167);
   height: 15vh;
   width: 100vw;
 }
 
+.th-empty {
+  empty-cells: hide;
+  visibility: hidden;
+}
 body {
   font-family: "Josefin Slab", serif;
 }

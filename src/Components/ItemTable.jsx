@@ -110,7 +110,7 @@ const ItemTable = (props) => {
         </tbody>
         <thead>
           <tr>
-            <th></th>
+            <th className="th-empty"></th>
             <th>Total</th>
             <th>{props.priceTotal} </th>
           </tr>
