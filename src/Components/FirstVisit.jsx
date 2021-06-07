@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
-const FolderModal = () => {
-  const [modal, setModal] = useState(false);
-
+const FolderModal = (props) => {
   const toggle = () => {
-    setModal(!modal);
+    props.setFirstVisit(!props.fisrtVisit);
   };
 
   const acceptButton = () => {
@@ -13,7 +11,7 @@ const FolderModal = () => {
   };
 
   return (
-    <Modal isOpen={modal}>
+    <Modal isOpen={props.firstVisit}>
       <ModalHeader toggle={toggle}>Create Folder</ModalHeader>
       <ModalBody>
         <p>Hello and Welcome</p>
