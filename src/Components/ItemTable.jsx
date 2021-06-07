@@ -69,6 +69,7 @@ const ItemTable = (props) => {
       <Table striped responsive bordered className="text-center">
         <thead>
           <tr>
+            <th>Day</th>
             <th>Description</th>
             <th>Spent</th>
             <th>Folder</th>
@@ -79,6 +80,7 @@ const ItemTable = (props) => {
             props.items.map((item) => {
               return (
                 <tr key={uniqid()}>
+                  <td>{item.day}</td>
                   <td>{item.name}</td>
                   <td>{item.price}</td>
                   <td>{item.folder.name}</td>
