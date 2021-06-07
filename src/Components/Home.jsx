@@ -42,7 +42,7 @@ const Home = (props) => {
   //CHECK IF IT IS USER FIRST VISIT
   useEffect(() => {
     if (props.userInfo) {
-      if (props.userInfo.firstVisit) {
+      if (props.userInfo.firstVisit === true) {
         setFirstVisit(true);
       }
     }
