@@ -8,7 +8,7 @@ const FolderModal = (props) => {
 
   const acceptButton = () => {
     toggle();
-    console.log("clicked");
+    console.log(props.firstVisit);
   };
 
   return (
