@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap");
 .header {
   background-color: #2d9ea7;
   height: 15vh;
@@ -43,6 +44,10 @@ p {
 
 .user {
   padding: 5px;
+}
+
+.welcome-text {
+  font-family: "Noto Sans JP", sans-serif;
 }
 
 .google-container {

@@ -43,7 +43,6 @@ const Home = (props) => {
   useEffect(() => {
     if (props.userInfo) {
       if (props.userInfo.firstVisit) {
-        alert("Hi!");
         setFirstVisit(true);
       }
     }
@@ -97,6 +96,7 @@ const Home = (props) => {
           firstVisit={firstVisit}
           setFirstVisit={setFirstVisit}
           token={props.token}
+          userInfo={props.userInfo}
         />
       ) : null}
     </div>
