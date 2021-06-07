@@ -110,6 +110,7 @@ const ItemTable = (props) => {
         </tbody>
         <thead>
           <tr>
+            <th></th>
             <th>Total</th>
             <th>{props.priceTotal} </th>
           </tr>
