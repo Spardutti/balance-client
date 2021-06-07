@@ -1,24 +1,24 @@
 {
   "files": {
     "main.css": "/balance-client/static/css/main.6e914fb2.chunk.css",
-    "main.js": "/balance-client/static/js/main.3a46b248.chunk.js",
-    "main.js.map": "/balance-client/static/js/main.3a46b248.chunk.js.map",
+    "main.js": "/balance-client/static/js/main.d6c6b550.chunk.js",
+    "main.js.map": "/balance-client/static/js/main.d6c6b550.chunk.js.map",
     "runtime-main.js": "/balance-client/static/js/runtime-main.76aad5e7.js",
     "runtime-main.js.map": "/balance-client/static/js/runtime-main.76aad5e7.js.map",
     "static/css/2.61b4cb56.chunk.css": "/balance-client/static/css/2.61b4cb56.chunk.css",
-    "static/js/2.0856d864.chunk.js": "/balance-client/static/js/2.0856d864.chunk.js",
-    "static/js/2.0856d864.chunk.js.map": "/balance-client/static/js/2.0856d864.chunk.js.map",
+    "static/js/2.f94769a6.chunk.js": "/balance-client/static/js/2.f94769a6.chunk.js",
+    "static/js/2.f94769a6.chunk.js.map": "/balance-client/static/js/2.f94769a6.chunk.js.map",
     "index.html": "/balance-client/index.html",
     "static/css/2.61b4cb56.chunk.css.map": "/balance-client/static/css/2.61b4cb56.chunk.css.map",
     "static/css/main.6e914fb2.chunk.css.map": "/balance-client/static/css/main.6e914fb2.chunk.css.map",
-    "static/js/2.0856d864.chunk.js.LICENSE.txt": "/balance-client/static/js/2.0856d864.chunk.js.LICENSE.txt",
+    "static/js/2.f94769a6.chunk.js.LICENSE.txt": "/balance-client/static/js/2.f94769a6.chunk.js.LICENSE.txt",
     "static/media/styles.css": "/balance-client/static/media/financeBackground.6c1637b0.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.76aad5e7.js",
     "static/css/2.61b4cb56.chunk.css",
-    "static/js/2.0856d864.chunk.js",
+    "static/js/2.f94769a6.chunk.js",
     "static/css/main.6e914fb2.chunk.css",
-    "static/js/main.3a46b248.chunk.js"
+    "static/js/main.d6c6b550.chunk.js"
   ]
 }
