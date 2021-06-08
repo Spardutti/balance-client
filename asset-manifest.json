@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/balance-client/static/css/main.124b8fd0.chunk.css",
-    "main.js": "/balance-client/static/js/main.9dbb7578.chunk.js",
-    "main.js.map": "/balance-client/static/js/main.9dbb7578.chunk.js.map",
+    "main.js": "/balance-client/static/js/main.d8a710af.chunk.js",
+    "main.js.map": "/balance-client/static/js/main.d8a710af.chunk.js.map",
     "runtime-main.js": "/balance-client/static/js/runtime-main.76aad5e7.js",
     "runtime-main.js.map": "/balance-client/static/js/runtime-main.76aad5e7.js.map",
     "static/css/2.61b4cb56.chunk.css": "/balance-client/static/css/2.61b4cb56.chunk.css",
@@ -19,6 +19,6 @@
     "static/css/2.61b4cb56.chunk.css",
     "static/js/2.a92b218d.chunk.js",
     "static/css/main.124b8fd0.chunk.css",
-    "static/js/main.9dbb7578.chunk.js"
+    "static/js/main.d8a710af.chunk.js"
   ]
 }
