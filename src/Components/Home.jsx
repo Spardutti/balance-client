@@ -23,8 +23,7 @@ const Home = (props) => {
             props.setToken(localToken);
             // FETCH THE USER DATA
             const response = await fetch(
-              "https://infinite-woodland-48479.herokuapp.com/user/" +
-                decodedToken._id,
+              props.serverUrl + "/user/" + decodedToken._id,
               {
                 headers: {
                   Authorization: "Bearer " + localToken,
@@ -50,7 +49,7 @@ const Home = (props) => {
 
   return (
     <div>
-      <Header userInfo={props.userInfo} />
+      <Header userInfo={props.userInfo} serverUrl={props.serverUrl} />
       {props.userInfo ? (
         <div className="content">
           <div className="img"></div>
@@ -59,6 +58,7 @@ const Home = (props) => {
             token={props.token}
             loading={loading}
             setLoading={setLoading}
+            serverUrl={props.serverUrl}
           />
         </div>
       ) : (
@@ -80,7 +80,7 @@ const Home = (props) => {
                   />
                 </div>
                 <a
-                  href="https://infinite-woodland-48479.herokuapp.com/google/login"
+                  href={props.serverUrl + "/google/login"}
                   className="btn-text"
                   onClick={() => setLoading(true)}
                 >
@@ -97,6 +97,7 @@ const Home = (props) => {
           setFirstVisit={setFirstVisit}
           token={props.token}
           userInfo={props.userInfo}
+          serverUrl={props.serverUrl}
         />
       ) : null}
     </div>

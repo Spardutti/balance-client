@@ -19,7 +19,7 @@ const FolderModal = (props) => {
   };
 
   const createFolder = async () => {
-    await fetch("https://infinite-woodland-48479.herokuapp.com/folder/add", {
+    await fetch(props.serverUrl + "/folder/add", {
       method: "POST",
       headers: {
         Authorization: "Bearer " + props.token,

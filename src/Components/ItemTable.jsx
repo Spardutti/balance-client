@@ -28,35 +28,29 @@ const ItemTable = (props) => {
 
   // DELETE ITEM
   const deleteItem = async (id) => {
-    await fetch(
-      "https://infinite-woodland-48479.herokuapp.com/item/delete/" + id,
-      {
-        method: "DELETE",
-        headers: {
-          Authorization: "Bearer " + props.token,
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    await fetch(props.serverUrl + "/item/delete/" + id, {
+      method: "DELETE",
+      headers: {
+        Authorization: "Bearer " + props.token,
+        "Content-Type": "application/json",
+      },
+    });
     props.getCurrentDateItems();
   };
 
   //EDIT ITEM
   const editItem = async () => {
-    await fetch(
-      "https://infinite-woodland-48479.herokuapp.com/item/edit/" + itemId,
-      {
-        method: "PUT",
-        headers: {
-          Authorization: "Bearer " + props.token,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: itemName,
-          price: itemPrice,
-        }),
-      }
-    );
+    await fetch(props.serverUrl + "/item/edit/" + itemId, {
+      method: "PUT",
+      headers: {
+        Authorization: "Bearer " + props.token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: itemName,
+        price: itemPrice,
+      }),
+    });
 
     props.getCurrentDateItems();
     setItemName("");
@@ -93,6 +87,7 @@ const ItemTable = (props) => {
                       }}
                     ></i>
                   </td>
+
                   <td style={{ width: "10px" }}>
                     <i
                       className="far fa-trash-alt"

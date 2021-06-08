@@ -5,6 +5,8 @@ import Token from "./Components/Token";
 import React from "react";
 
 function App() {
+  const serverUrl = "https://infinite-woodland-48479.herokuapp.com";
+
   const [token, setToken] = useState();
   const [userInfo, setUserInfo] = useState();
   return (
@@ -16,10 +18,11 @@ function App() {
             setToken={setToken}
             setUserInfo={setUserInfo}
             userInfo={userInfo}
+            serverUrl={serverUrl}
           />
         </Route>
         <Route path="/logged">
-          <Token token={token} setToken={setToken} />
+          <Token token={token} serverUrl={serverUrl} setToken={setToken} />
         </Route>
       </Switch>
     </HashRouter>

@@ -11,7 +11,7 @@ const Header = (props) => {
                 Welcome {props.userInfo.username.split(" ")[0]}
               </h5>
               <a
-                href="https://infinite-woodland-48479.herokuapp.com/logout"
+                href={props.serverUrl + "/logout"}
                 className="btn btn-dark text-light btn-sm"
                 onClick={() => {
                   localStorage.clear();

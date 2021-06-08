@@ -25,15 +25,12 @@ const Table = (props) => {
 
   //GET ALL YEARS THAT HAVE DATA FROM THE CURRENT USER
   const getAllYears = async () => {
-    const response = await fetch(
-      "https://infinite-woodland-48479.herokuapp.com/items/year",
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + props.token,
-        },
-      }
-    );
+    const response = await fetch(props.serverUrl + "/items/year", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + props.token,
+      },
+    });
     const data = await response.json();
     setYearsToDisplay(data);
   };
@@ -41,14 +38,11 @@ const Table = (props) => {
   // GET THE CURRENT MONTHS OF THE CURRENT YEAR
   const getCurrentYearMonths = async (year) => {
     if (!year) year = new Date().getFullYear();
-    const response = await fetch(
-      "https://infinite-woodland-48479.herokuapp.com/items/year/" + year,
-      {
-        headers: {
-          Authorization: "Bearer " + props.token,
-        },
-      }
-    );
+    const response = await fetch(props.serverUrl + "/items/year/" + year, {
+      headers: {
+        Authorization: "Bearer " + props.token,
+      },
+    });
     const data = await response.json();
     setMonthsToDisplay(data);
   };
@@ -57,10 +51,7 @@ const Table = (props) => {
   const getCurrentDateItems = async () => {
     setLoading(true);
     const response = await fetch(
-      "https://infinite-woodland-48479.herokuapp.com/items/current/" +
-        activeYear +
-        "/" +
-        activeMonth,
+      props.serverUrl + "/items/current/" + activeYear + "/" + activeMonth,
       {
         headers: {
           "Content-Type": "application/json",
@@ -106,6 +97,8 @@ const Table = (props) => {
         setLoading={props.setLoading}
         loading={props.loading}
         setFolderAdded={setFolderAdded}
+        serverUrl={props.serverUrl}
+        getCurrentYearMonths={getCurrentYearMonths}
       />
       {/* DISPLAY ALL THE YEARS WITH DATA */}
       <div>
@@ -114,6 +107,7 @@ const Table = (props) => {
           getCurrentYearMonths={getCurrentYearMonths}
           getActiveYear={getActiveYear}
           activeYear={activeYear}
+          serverUrl={props.serverUrl}
         />
       </div>
       <div>
@@ -121,6 +115,7 @@ const Table = (props) => {
           monthsToDisplay={monthsToDisplay}
           getActiveMonth={getActiveMonth}
           activeMonth={activeMonth}
+          serverUrl={props.serverUrl}
         />
       </div>
       <h1 className="text-center">{activeMonth} </h1>
@@ -135,6 +130,7 @@ const Table = (props) => {
         loading={loading}
         setFolderAdded={setFolderAdded}
         folderAdded={folderAdded}
+        serverUrl={props.serverUrl}
       />
       {loading ? (
         <div className="d-flex justify-content-center mt-3">
@@ -147,6 +143,7 @@ const Table = (props) => {
           priceTotal={priceTotal}
           setPriceTotal={setPriceTotal}
           getCurrentDateItems={getCurrentDateItems}
+          serverUrl={props.serverUrl}
         />
       )}
     </div>

@@ -17,14 +17,20 @@ import {
 import uniqid from "uniqid";
 import FolderModal from "./FolderModal";
 import ErrorPopUp from "./ErrorPopUp";
+import moment from "moment";
 
 const AddItem = (props) => {
   const [itemName, setItemName] = useState("");
-  const [itemPrice, setItemPrice] = useState();
+  const [itemPrice, setItemPrice] = useState("");
   const [itemFolder, setItemFolder] = useState("");
   const [folders, setFolders] = useState([]);
   const [modal, setModal] = useState(false);
   const [popoverOpen, setPopoverOpen] = useState(false);
+  const [day, setDay] = useState(new Date().getDate());
+  const [month, setMonth] = useState(
+    new Date().toLocaleDateString("en-US", { month: "long" })
+  );
+  const [year, setYear] = useState(new Date().getFullYear());
 
   const popUpToggle = () => setPopoverOpen(!popoverOpen);
 
@@ -45,6 +51,13 @@ const AddItem = (props) => {
     setItemFolder(e.target.value);
   };
 
+  const dateHandler = (e) => {
+    let today = moment(e.target.value);
+    setDay(moment(today).date());
+    setMonth(new Date(today).toLocaleDateString("en-US", { month: "long" }));
+    setYear(new Date(today).getFullYear());
+  };
+
   // CREATE A NEW ITEM
   const createItem = async (e) => {
     e.preventDefault();
@@ -52,8 +65,7 @@ const AddItem = (props) => {
     if (itemName && itemPrice && itemFolder) {
       props.setLoading(true);
       const response = await fetch(
-        "https://infinite-woodland-48479.herokuapp.com/add/" +
-          props.userInfo._id,
+        props.serverUrl + "/add/" + props.userInfo._id,
         {
           method: "POST",
           headers: {
@@ -64,6 +76,9 @@ const AddItem = (props) => {
             name: itemName,
             price: itemPrice,
             folder: itemFolder,
+            day,
+            month,
+            year,
           }),
         }
       );
@@ -77,23 +92,22 @@ const AddItem = (props) => {
       setItemPrice("");
       setItemName("");
       setItemFolder("");
+
       props.getCurrentDateItems();
       if (response) {
         props.setLoading(false);
+        props.getCurrentYearMonths();
       }
     }
   };
 
   // GET CURRENT USER FOLDER
   const getFolders = async () => {
-    const response = await fetch(
-      "https://infinite-woodland-48479.herokuapp.com/folders",
-      {
-        headers: {
-          Authorization: "Bearer " + props.token,
-        },
-      }
-    );
+    const response = await fetch(props.serverUrl + "/folders", {
+      headers: {
+        Authorization: "Bearer " + props.token,
+      },
+    });
     const data = await response.json();
     setFolders(data);
   };
@@ -106,7 +120,7 @@ const AddItem = (props) => {
     <Container className=" pt-2">
       <Form autoComplete="off">
         <Row>
-          <Col sm={4}>
+          <Col sm={3}>
             <FormGroup>
               <Label>Description</Label>
               <Input
@@ -119,7 +133,7 @@ const AddItem = (props) => {
               />
             </FormGroup>
           </Col>
-          <Col sm={4}>
+          <Col sm={3}>
             <FormGroup>
               <Label>Amount Spent</Label>
               <Input
@@ -132,7 +146,13 @@ const AddItem = (props) => {
               />
             </FormGroup>
           </Col>
-          <Col sm={4}>
+          <Col sm={3}>
+            <FormGroup>
+              <Label>Date</Label>
+              <Input type="date" onChange={dateHandler}></Input>
+            </FormGroup>
+          </Col>
+          <Col sm={3}>
             <FormGroup>
               <Label>Folder</Label>
               <InputGroup>
@@ -181,6 +201,7 @@ const AddItem = (props) => {
           token={props.token}
           getFolders={getFolders}
           setFolderAdded={props.setFolderAdded}
+          serverUrl={props.serverUrl}
         />
       ) : null}
       {popoverOpen ? (

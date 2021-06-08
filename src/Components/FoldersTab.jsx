@@ -52,15 +52,12 @@ const FoldersTab = (props) => {
 
   //CHECK IF FOLDER IS EMPTY
   const checkIfFolderEmpty = async (id) => {
-    const response = await fetch(
-      "https://infinite-woodland-48479.herokuapp.com/item/folder/" + folderId,
-      {
-        headers: {
-          Authorization: "Bearer " + props.token,
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await fetch(props.serverUrl + "/item/folder/" + folderId, {
+      headers: {
+        Authorization: "Bearer " + props.token,
+        "Content-Type": "application/json",
+      },
+    });
     const data = await response.json();
     if (data.length === 0) {
       deleteFolder();
@@ -69,15 +66,12 @@ const FoldersTab = (props) => {
 
   // DELETE FOLDER
   const deleteFolder = async () => {
-    await fetch(
-      "https://infinite-woodland-48479.herokuapp.com/folder/delete/" + folderId,
-      {
-        method: "DELETE",
-        headers: {
-          Authorization: "Bearer " + props.token,
-        },
-      }
-    );
+    await fetch(props.serverUrl + "/folder/delete/" + folderId, {
+      method: "DELETE",
+      headers: {
+        Authorization: "Bearer " + props.token,
+      },
+    });
     getFolders();
   };
 

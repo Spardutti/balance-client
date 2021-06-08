@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
 const FolderModal = (props) => {
@@ -8,21 +8,14 @@ const FolderModal = (props) => {
 
   const acceptButton = async () => {
     toggle();
-    console.log(props.firstVisit);
 
-    const response = await fetch(
-      "https://infinite-woodland-48479.herokuapp.com/user/" +
-        props.userInfo._id,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + props.token,
-        },
-      }
-    );
-    const data = await response.json();
-    console.log(data);
+    await fetch(props.serverUrl + "/user/" + props.userInfo._id, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + props.token,
+      },
+    });
   };
 
   return (
