@@ -8,6 +8,7 @@ import {
   Form,
   FormGroup,
   Input,
+  Label,
 } from "reactstrap";
 
 const ModalExample = (props) => {
@@ -25,9 +26,11 @@ const ModalExample = (props) => {
         <ModalBody>
           <Form>
             <FormGroup>
+              <Label>Description</Label>
               <Input value={props.itemName} onChange={nameHandler} />
             </FormGroup>
             <FormGroup>
+              <Label>Amount Spent</Label>
               <Input value={props.itemPrice} onChange={priceHandler} />
             </FormGroup>
           </Form>
